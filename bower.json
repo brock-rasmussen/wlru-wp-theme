@@ -1,0 +1,19 @@
+{
+  "name": "wallarooster",
+  "authors": [
+    "brock-rasmussen <rasmussen.brock@gmail.com>"
+  ],
+  "description": "Wallarooster",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
