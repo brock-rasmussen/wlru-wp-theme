@@ -1,34 +1,166 @@
-/*!
-Theme Name: Wallarooster
-Author: Wallaroo Media LLC
-Author URI: http://wallaroomedia.com
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: bootstrap, responsive, simple
-Text Domain: wallarooster
+/* Bootstrap
+ * -------------------------------------------------- */
+$navbar-margin-bottom:  0;
 
-This theme, like WordPress, is licensed under the GPL.
-Use it to make something cool, have fun, and share what you've learned with others.
-*/
+@import 'bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
-/*
- * IE10 viewport hack for Surface/desktop Windows 8 bug
- * Copyright 2014-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- *
- * See the Getting Started docs for more information:
- * http://getbootstrap.com/getting-started/#support-ie10-width
- */
+
+/* Slick Carousel
+ * -------------------------------------------------- */
+ $slick-font-family: 'FontAwesome';
+ $slick-loader-path: '../';
+ $slick-arrow-color: $text-color;
+ $slick-dot-color: $text-color;
+ $slick-dot-color-active: $slick-dot-color;
+ $slick-prev-character: "\f053";
+ $slick-next-character: "\f054";
+ $slick-dot-character: "\f111";
+ $slick-dot-size: 6px !default;
+
+@import 'bower_components/slick-carousel/slick/slick.scss';
+@import 'bower_components/slick-carousel/slick/slick-theme.scss';
+
+.slick-prev {
+  left: 0;
+  z-index: 1;
+}
+.slick-next {
+  right: 0;
+}
+
+
+/* Custom Normalize
+ * -------------------------------------------------- */
 @-webkit-viewport { width: device-width; }
 @-moz-viewport    { width: device-width; }
 @-ms-viewport     { width: device-width; }
 @-o-viewport      { width: device-width; }
 @viewport         { width: device-width; }
 
-/* Move down content because we have a fixed navbar that is 50px tall */
+
+/* Offcanvas Navigation
+ * -------------------------------------------------- */
+html,
 body {
-  padding-top: 50px;
-  padding-bottom: 20px;
+  overflow-x: hidden;
+}
+.site-main {
+  padding-right: 0;
+  padding-left: 0;
 }
 
-@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
+@media screen and (max-width: 767px) {
+  .navbar-header {
+    text-align: center;
+  }
+
+  .navbar-brand {
+    display: inline-block;
+    float: none;
+  }
+
+  .navbar-toggle {
+    float: none;
+    color: #{$navbar-inverse-toggle-icon-bar-bg};
+
+    &.pull-left {
+      margin-right: 0;
+      margin-left: #{$grid-gutter-width / 2};
+    }
+  }
+
+  .row-offcanvas {
+    position: relative;
+    transition: all .25s ease-out;
+  }
+
+  .row-offcanvas
+  .sidebar-offcanvas {
+    background-color: #{$navbar-inverse-bg};
+    padding: 0;
+  }
+
+  .row-offcanvas
+  .sidebar-offcanvas
+  a.list-group-item {
+    color: #{$navbar-inverse-link-color};
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #{$navbar-inverse-border};
+    border-radius: 0;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -50%; /* 6 columns */
+    text-align: right;
+  }
+
+  .row-offcanvas-right.active {
+    right: 50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left.active {
+    left: 50%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%; /* 6 columns */
+    height: 100%;
+  }
+
+  .row-offcanvas .offcanvas-backdrop {
+    display: none;
+    opacity: 0;
+  }
+  .row-offcanvas.active .offcanvas-backdrop {
+    background-color: #{$navbar-inverse-bg};
+    display: block;
+    height: 100%;
+    opacity: 0.2;
+    position: absolute;
+    top: 0;
+    width: 200%;
+  }
+  .row-offcanvas-right.active .offcanvas-backdrop {
+    right: 100%;
+  }
+  .row-offcanvas-left.active .offcanvas-backdrop {
+    left: 100%;
+  }
+
+  .navbar-form {
+    border-style: none;
+    box-shadow: none;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+
+/* Carousel
+ * -------------------------------------------------- */
+.container .jumbotron,
+.container-fluid .jumbotron {
+  border-radius: 0;
+  min-height: 100%;
+}
+
+#jumbotron-carousel:not(.slick-initialized) .jumbotron {
+  display: none;
+}

@@ -2,19 +2,11 @@
 if ( ! function_exists( 'wallarooster_setup' ) ) :
 function wallarooster_setup() {
 
-  // Make theme available for translation.
   load_theme_textdomain( 'wallarooster', get_template_directory() . '/languages' );
 
-   // Add default posts and comments RSS feed links to head.
   add_theme_support( 'automatic-feed-links' );
-
-  // Let WordPress manage the document title. This theme does not use a hard-coded <title> tag in the document head, and expects WordPress to provide it for us.
   add_theme_support( 'title-tag' );
-
-  // Enable support for Post Thumbnails on posts and pages.
   add_theme_support( 'post-thumbnails' );
-
-  // Switch default core markup for search form, comment form, and comments to output valid HTML5.
   add_theme_support( 'html5', array(
     'search-form',
     'comment-form',
@@ -22,8 +14,6 @@ function wallarooster_setup() {
     'gallery',
     'caption',
   ) );
-
-  // Enable support for Post Formats.
   add_theme_support( 'post-formats', array(
     'aside',
     'gallery',
@@ -33,8 +23,6 @@ function wallarooster_setup() {
     'video',
     'audio',
   ) );
-
-  // Set up the WordPress core custom background feature.
   add_theme_support( 'custom-background', apply_filters( 'wallarooster_custom_background_args', array(
     'default-color' => 'ffffff',
     'default-image' => '',
@@ -72,16 +60,21 @@ add_action( 'widgets_init', 'wallarooster_widgets_init' );
 
 
 // Enqueue scripts and styles.
-function badger_scripts() {
+function wallarooster_scripts() {
+  // files in header
+  wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Roboto+Slab' );
+  wp_enqueue_script( 'font-awesome', 'https://use.fontawesome.com/3b95dffedb.js' );
   wp_enqueue_style( 'wallarooster-style', get_stylesheet_uri() );
-
-  wp_enqueue_script( 'wallarooster-script', get_template_directory_uri() . '/scripts.min.js', array('jquery'), null, true );
 
   if ( is_singular() && coments_open() && get_option( 'thread_comments' ) ) {
     wp_enqueue_script( 'comment-reply' );
   }
-}
-add_action( 'wp_enqueue_scripts', 'badger_scripts' );
 
+  // files in footer
+  wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array( 'jquery' ), '3.3.6', true );
+  wp_enqueue_script( 'slick-js', 'https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js', array( 'jquery' ), '1.6.0', true );
+  wp_enqueue_script( 'wallarooster-script', get_template_directory_uri() . '/scripts/scripts.min.js', array( 'jquery' ), null, true );
+}
+add_action( 'wp_enqueue_scripts', 'wallarooster_scripts' );
 
 ?>

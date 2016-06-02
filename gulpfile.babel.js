@@ -9,6 +9,23 @@ import mainBowerFiles from 'main-bower-files';
 
 const $ = gulpLoadPlugins();
 
+const copyToFonts = [
+  'bower_components/slick-carousel/slick/fonts/**/*',
+];
+
+const copyToRoot = [
+  'bower_components/slick-carousel/slick/ajax-loader.gif',
+];
+
+const styles = [
+  'src/styles/**/*.{css,scss}',
+];
+
+const scripts = [
+  'src/scripts/**/*.js'
+]
+
+
 // lint javascript
 gulp.task('lint', () =>
   gulp.src('src/scripts/**/*.js')
@@ -17,6 +34,7 @@ gulp.task('lint', () =>
     .pipe($.eslint.failOnError())
 );
 
+
 // optimize images
 gulp.task('images', () =>
   gulp.src('src/images/**/*')
@@ -24,27 +42,25 @@ gulp.task('images', () =>
       progressive: true,
       interlaced: true
     })))
-    .pipe(gulp.dest('images'))
+    .pipe(gulp.dest('dist/images'))
     .pipe($.size({title: 'images'}))
 );
 
-// copy fonts to the root level
-gulp.task('fonts', () =>
-  gulp.src([
-    'bower_components/bootstrap-sass/assets/fonts/**/*',
-    'bower_components/slick-carousel/slick/fonts/**/*'
-  ])
-    .pipe(gulp.dest('fonts'))
-    .pipe($.size({title: 'fonts'}))
-);
 
-gulp.task('copy', () =>
-  gulp.src([
-    'bower_components/slick-carousel/slick/ajax-loader.gif',
-  ])
-    .pipe(gulp.dest('./'))
-    .pipe($.size({title: 'copy'}))
+// move to the fonts folder
+gulp.task('copy.fonts', () =>
+  gulp.src(copyToFonts)
+    .pipe(gulp.dest('dist/fonts'))
+    .pipe($.size({title: 'copy.fonts'}))
 );
+// move to the root
+gulp.task('copy.root', () =>
+  gulp.src(copyToRoot)
+    .pipe(gulp.dest('dist'))
+    .pipe($.size({title: 'copy.root'}))
+);
+gulp.task('copy', ['copy.fonts', 'copy.root']);
+
 
 // compile and automatically prefix stylesheets
 gulp.task('styles', () => {
@@ -59,58 +75,63 @@ gulp.task('styles', () => {
     'android >= 4.4',
     'bb >= 10'
   ];
-
-  // for best performance don't add sass partials to `gulp.src`
-  return gulp.src([
-    'src/styles/**/*.{css,scss}',
-    'bower_components/slick-carousel/slick/slick.scss',
-    'bower_components/slick-carousel/slick/slick-theme.scss'
-  ])
+  return gulp.src(styles)
     .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       precision: 10
     }).on('error', $.sass.logError))
+    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe(gulp.dest('.tmp/styles'))
     .pipe($.concat('style.css'))
-    .pipe($.if('*.css', $.cssnano()))
-    .pipe($.size({title: 'styles'}))
-    .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest('./'));
-});
+    // .pipe($.if('*.css', $.cssnano({
+    //   discardComments: {
+    //     removeAll: true
+    //   }
+    // })))
+    .pipe($.insert.prepend(
+`/*
+Theme Name: Wallarooster
+Author: Wallaroo Media LLC
+Author URI: http://wallaroomedia.com
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: bootstrap, responsive, simple
+Text Domain: wallarooster
 
-// concatenate and minify JavaScript. Transpiles ES2015 code to ES5
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/`
+    ))
+    .pipe($.size({title: 'styles'}))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('dist/styles'));
+});
+gulp.task('styles.watch', () =>
+  gulp.watch(styles, ['styles'])
+);
+
+
 gulp.task('scripts', () =>
-  // your scripts need to be listed here in the right order to be correctly concatenated
-  gulp.src([
-    'src/scripts/**/*.js'
-  ])
+  gulp.src(scripts)
     .pipe($.newer('.tmp/scripts'))
     .pipe($.sourcemaps.init())
     .pipe($.babel())
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe($.concat('scripts.min.js'))
-    .pipe($.uglify({preserveComments: 'some'}))
-    // output files
+    .pipe($.uglify())
     .pipe($.size({title: 'scripts'}))
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('./scripts'));
-
-  gulp.src([
-    'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
-    'bower_components/slick-carousel/slick/slick.min.js'
-  ])
-    .pipe($.newer('.tmp/scripts'))
-    .pipe(gulp.dest('./scripts'))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('dist/scripts'))
 );
+gulp.task('scripts.watch', () =>
+  gulp.watch(scripts, ['lint', 'scripts'])
+);
+
 
 gulp.task('clean', () => del(['.tmp', 'style.css', 'style.css.map', 'scripts.min.js', 'scripts.min.js.map'], {dot: true}));
 
-gulp.task('watch', ['scripts', 'styles'], () => {
-  gulp.watch(['src/styles/**/*.{scss,css}'], ['styles']);
-  gulp.watch(['src/scripts/**/*.js'], ['lint', 'scripts']);
-  gulp.watch('./**/*.php');
-});
 
 gulp.task('default', ['clean'], cb =>
   runSequence(
