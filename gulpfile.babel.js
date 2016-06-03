@@ -10,7 +10,7 @@ import mainBowerFiles from 'main-bower-files';
 const $ = gulpLoadPlugins();
 
 const copyToFonts = [
-  'bower_components/slick-carousel/slick/fonts/**/*',
+  // 'bower_components/slick-carousel/slick/fonts/**/*',
 ];
 
 const copyToRoot = [

@@ -25,7 +25,21 @@
             <span class="sr-only">Toggle Search</span>
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <?php if ( get_header_image() ) : ?>
+            <a class="navbar-brand-img" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+              <img src="<?php header_image(); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?> alt="">
+            </a>
+          <?php endif; ?>
+          <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+            <span class="site-title"><?php bloginfo( 'name' ); ?></span>
+            <?php
+              $description = get_bloginfo( 'description', 'display' );
+              if ( $description || is_customize_preview() ) :
+            ?>
+            <small class="site-description"><?php echo $description; ?></small>
+            <?php
+            endif; ?>
+          </a><!-- .navbar-brand -->
         </div>
         <div class="collapse navbar-collapse" id="navbar">
           <?php

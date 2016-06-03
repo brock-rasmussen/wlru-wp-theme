@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div id="jumbotron-carousel">
+<div id="jumbotron-carousel" class="no-gutter">
   <div class="jumbotron">
     <div class="container">
       <div>

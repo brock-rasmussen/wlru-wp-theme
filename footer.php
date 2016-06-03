@@ -24,7 +24,16 @@
 <script>
   jQuery(document).ready(function() {
     jQuery('#jumbotron-carousel').slick({
-      dots: true
+      arrows: true,
+      dots: true,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false
+          }
+        }
+      ]
     });
   });
 </script>
