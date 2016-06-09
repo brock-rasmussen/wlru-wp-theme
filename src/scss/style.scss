@@ -1,0 +1,109 @@
+/*
+Theme Name: Wallarooster
+*/
+
+/* Bootstrap
+ * -------------------------------------------------- */
+// $navbar-margin-bottom:  0;
+
+@import 'bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+
+// BOOTSTRAP OVERRIDES
+
+
+/* Slick Carousel
+ * -------------------------------------------------- */
+// Use Font Awesome instead of the default Slick font
+$slick-font-family: 'FontAwesome';
+$slick-loader-path: '../';
+
+// Have arrows and dots use the same color as the body
+$slick-arrow-color: #333;
+$slick-dot-color: #333;
+
+// Update the unicode characters for Font Awesome
+$slick-prev-character: "\f053";
+$slick-next-character: "\f054";
+$slick-dot-character: "\f111";
+
+// Increase dot size (default 6px)
+$slick-dot-size: 9px;
+
+@import 'bower_components/slick-carousel/slick/slick.scss';
+@import 'bower_components/slick-carousel/slick/slick-theme.scss';
+
+// SLICK OVERRIDES
+.slick-prev {
+  left: 25px;
+  z-index: 1;
+}
+.slick-next {
+  right: 25px;
+}
+
+.slick-dots {
+  bottom: 0;
+}
+
+/* Underscores
+ * -------------------------------------------------- */
+ @import 'underscores';
+
+/* Word break
+ * -------------------------------------------------- */
+ #primary,
+ #secondary {
+   word-break: break-all;
+   word-break: break-word;
+   hyphens: auto;
+ }
+
+/* Skip to content
+ * -------------------------------------------------- */
+.sr-only-focusable.skip-link:focus {
+ left: $grid-gutter-width / 2;
+ position: absolute;
+ top: $padding-base-vertical;
+ // Override font-awesome.css .sr-only styling
+ padding: $padding-base-vertical $padding-base-horizontal;
+ // Above WP toolbar
+ z-index: 100000;
+}
+
+/* Post Meta
+ * -------------------------------------------------- */
+.entry-meta {
+  > span:not(:first-child) {
+    margin-left: $grid-gutter-width;
+  }
+
+  .fa {
+    color: $text-muted;
+  }
+
+  a {
+    color: $text-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: $link-hover-decoration;
+    }
+  }
+}
+
+/* Featured Image
+ * -------------------------------------------------- */
+img.wp-post-image {
+  margin-bottom: $grid-gutter-width;
+}
+
+/* Footer
+ * -------------------------------------------------- */
+#colophon {
+  margin-top: 50px;
+  border-top: 1px solid $panel-default-border;
+
+  .container {
+    padding-top: 25px;
+  }
+}

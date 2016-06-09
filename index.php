@@ -1,51 +1,58 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The main template file.
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ *
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package wlru
+ */
 
-<div id="jumbotron-carousel" class="no-gutter">
-  <div class="jumbotron">
-    <div class="container">
-      <div>
-        <h1>Example headline.</h1>
-        <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="jumbotron">
-    <div class="container">
-      <div>
-        <h1>Another example headline.</h1>
-        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="jumbotron">
-    <div class="container">
-      <div>
-        <h1>One more for good measure.</h1>
-        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-      </div>
-    </div>
-  </div>
-</div><!-- /.carousel -->
+get_header(); ?>
 
-<div class="row">
-  <div class="col-xs-12">
-    <?php
-    if( have_posts() ) {
-      while( have_posts() ) {
-        the_post();
-        ?>
-          <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-            <header class="entry=header">
-              Hello world
-            </header>
-          </article>
-        <?php
-      }
-    }
-    ?>
-  </div>
-</div>
-<?php get_footer(); ?>
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+			<div class="container-fluid">
+
+			<?php
+			if ( have_posts() ) :
+
+				if ( is_home() && ! is_front_page() ) : ?>
+					<header>
+						<h1 class="page-title sr-only"><?php single_post_title(); ?></h1>
+					</header>
+
+				<?php
+				endif;
+
+				/* Start the Loop */
+				while ( have_posts() ) : the_post();
+
+					/*
+					 * Include the Post-Format-specific template for the content.
+					 * If you want to override this in a child theme, then include a file
+					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+					 */
+					get_template_part( 'template-parts/content', get_post_format() );
+
+				endwhile;
+
+				// the_posts_pagination();
+				wlru_posts_navigation();
+
+			else :
+
+				get_template_part( 'template-parts/content', 'none' );
+
+			endif; ?>
+
+		</div><!-- .container-fluid -->
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+<?php
+get_footer();

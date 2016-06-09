@@ -1,3 +1,18 @@
-<form role="search" method="get" id="searchform" class="navbar-form navbar-right" action="<?php echo home_url( '/' ); ?>">
-  <input class="form-control" placeholder="Search..." type="text" name="s" id="search" value="<?php the_search_query(); ?>">
+<?php
+/**
+ * Search Form Template
+ */
+?>
+
+<form class="form-search" method="get" action="<?php echo home_url( '/' ); ?>" role="search">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="input-group">
+				<input class="form-control" type="text" name="s" placeholder="<?php esc_attr_e('search here &hellip;', 'wlru'); ?>" />
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit" name="submit" id="searchsubmit" value="<?php esc_attr_e('Search', 'wlru'); ?>"><?php _e('Search', 'wlru'); ?></button>
+				</span>
+			</div>
+		</div>
+	</div>
 </form>

@@ -1,11 +1,10 @@
 {
   "name": "wallarooster",
   "authors": [
-    "brock-rasmussen <rasmussen.brock@gmail.com>"
+    "Brock Rasmussen <rasmussen.brock@gmail.com>"
   ],
-  "description": "Wallarooster",
+  "description": "",
   "main": "",
-  "moduleType": [],
   "license": "MIT",
   "homepage": "",
   "private": true,
@@ -18,6 +17,6 @@
   ],
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
-    "slick-carousel": "slick.js#^1.6.0",
+    "slick-carousel": "^1.6.0"
   }
 }
