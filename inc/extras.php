@@ -40,7 +40,7 @@ add_filter( 'the_content_more_link', 'wlru_read_more_link' );
  * Custom edit link
  */
 function wlru_edit_link( $input ) {
-	return str_replace( 'class="post-edit-link"', 'class="post-edit-link btn btn-danger"', $input );
+	return str_replace( 'class="post-edit-link"', 'class="post-edit-link btn btn-xs btn-danger"', $input );
 }
 add_filter( 'edit_post_link', 'wlru_edit_link' );
 

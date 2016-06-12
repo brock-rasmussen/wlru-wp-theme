@@ -80,7 +80,44 @@ if ( post_password_required() ) {
 	<?php
 	endif;
 
-	comment_form();
+	$req = get_option( 'require_name_email' );
+	$aria_req = ( $req ? " aria-required='true'" : '' );
+
+	$comments_args = array(
+		// change the title of send button
+		'label_submit'=>'Submit',
+		// change the title of the reply section
+		'title_reply'=>'Leave a Comment',
+		// remove "Text or HTML to be displayed after the set of comment fields"
+		'comment_notes_after' => '',
+		// redefine your own textarea (the comment body)
+		'comment_field' => ' <div class="form-group"><label for="comment">' . _x( 'Comment', 'bootstrapwp' ) . '</label><textarea class="form-control" rows="10" id="comment" name="comment" aria-required="true"></textarea></div>',
+
+		'fields' => apply_filters( 'comment_form_default_fields', array(
+
+			'author' =>
+				'<div class="form-group">' .
+				'<label for="author">' . __( 'Name', 'bootstrapwp' ) . '</label> ' .
+				( $req ? '<span class="required">*</span>' : '' ) .
+				'<input class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .
+				'" size="30"' . $aria_req . ' /></div>',
+
+			'email' =>
+				'<div class="form-group"><label for="email">' . __( 'Email', 'bootstrapwp' ) . '</label> ' .
+				( $req ? '<span class="required">*</span>' : '' ) .
+				'<input class="form-control" id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
+				'" size="30"' . $aria_req . ' /></div>',
+
+			'url' =>
+				'<div class="form-group"><label for="url">' .
+				__( 'Website', 'bootstrapwp' ) . '</label>' .
+				'<input class="form-control" id="url" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) .
+				'" size="30" /></div>'
+			)
+		),
+	);
+
+	comment_form($comments_args);
 	?>
 
 </div><!-- #comments -->
