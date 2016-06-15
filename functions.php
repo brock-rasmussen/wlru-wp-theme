@@ -110,16 +110,6 @@ function wlru_widgets_init() {
 		'after_title'   => '</h2>',
 	) );
 
-	register_sidebar( array(
-		'name'					=> esc_html__( 'Search Page', 'wlru' ),
-		'id'						=> 'sidebar-search',
-		'description'		=> esc_html__( 'Add widgets here.', 'wlru' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
-
 	register_sidebars( 4, array(
 		'name'					=> esc_html__( 'Footer %d', 'wlru' ),
 		'id'						=> 'footer-area',
@@ -146,13 +136,52 @@ function wlru_scripts() {
 
 	wp_enqueue_script( 'wlru-bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array( 'jquery' ), null, true );
 
-	wp_enqueue_script( 'wlru-slick-js', 'https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js', array( 'jquery' ), '1.6.0', true );
+	if ( is_front_page() ) {
+		wp_enqueue_script( 'wlru-slick-js', 'https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js', array( 'jquery' ), '1.6.0', true );
+	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wlru_scripts' );
+
+function wlru_slider() {
+	if ( is_front_page() ) {
+		$slider_arrows				= get_theme_mod( 'slider_arrows', true ) ? 'true' : 'false';
+		$slider_autoplay			= get_theme_mod( 'slider_autoplay', false ) ? 'true' : 'false';
+		$slider_autoplayspeed	= get_theme_mod( 'slider_autoplayspeed', 3000 );
+		$slider_dots					= get_theme_mod( 'slider_dots', false ) ? 'true' : 'false';
+		$slider_fade					= get_theme_mod( 'slider_fade', false ) ? 'true' : 'false';
+		$slider_speed					= get_theme_mod( 'slider_speed', 300 );
+
+		$script = join( array(
+			'<script>',
+				'jQuery(document).ready(function() {',
+					'jQuery( \'#slider\').slick({',
+						'arrows: ' . $slider_arrows . ',',
+						'autoplay: ' . $slider_autoplay . ',',
+						'autoplaySpeed: ' . $slider_autoplayspeed . ',',
+						'dots: ' . $slider_dots . ',',
+						'fade: ' . $slider_fade . ',',
+						'speed: ' . $slider_speed . ',',
+						'responsive: [',
+							'{',
+							'breakpoint: 768,',
+							'settings: {',
+								'arrows: false',
+							'}',
+							'}',
+						']',
+					'});',
+				'});',
+			'</script>',
+		) );
+
+		echo $script;
+	}
+}
+add_action( 'wp_footer', 'wlru_slider', 30 );
 
 /**
  * Implement the Custom Header feature.

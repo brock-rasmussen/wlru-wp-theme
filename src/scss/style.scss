@@ -1,25 +1,281 @@
-/*
+/*!
 Theme Name: Wallarooster
 */
 
-/* Bootstrap
- * -------------------------------------------------- */
-// $navbar-margin-bottom:  0;
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Typography
+# Elements
+# Navigation
+	## Links
+	## Menus
+# Accessibility
+# Alignments
+# Widgets
+# Content
+	## Posts and pages
+	## Comments
+# Footer
+# Infinite scroll
+# Media
+  ## Carousel
+	## Captions
+	## Galleries
+--------------------------------------------------------------*/
+@import "bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 
-@import 'bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+/*--------------------------------------------------------------
+# Typography
+--------------------------------------------------------------*/
+#primary,
+#secondary {
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+}
 
-// BOOTSTRAP OVERRIDES
+/*--------------------------------------------------------------
+# Elements
+--------------------------------------------------------------*/
 
+/*--------------------------------------------------------------
+# Navigation
+--------------------------------------------------------------*/
+.navbar-brand img {
+  max-height: 100%;
+  width: auto;
+}
 
-/* Slick Carousel
- * -------------------------------------------------- */
+/*--------------------------------------------------------------
+## Links
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+## Menus
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Accessibility
+--------------------------------------------------------------*/
+.sr-only-focusable.skip-link:focus {
+  left: $grid-gutter-width / 2;
+  position: absolute;
+  top: $padding-base-vertical;
+  padding: $padding-base-vertical $padding-base-horizontal;
+  z-index: 100000;
+}
+
+/*--------------------------------------------------------------
+# Alignments
+--------------------------------------------------------------*/
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+}
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: 1.5em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*--------------------------------------------------------------
+# Widgets
+--------------------------------------------------------------*/
+.widget {
+	margin: 0 0 1.5em;
+
+  /* Make sure select elements fit in widgets */
+  select {
+    max-width: 100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Content
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+## Posts and pages
+--------------------------------------------------------------*/
+.sticky {
+	display: block;
+}
+.hentry {
+	margin: 0 0 1.5em;
+	border-bottom: 1px solid $panel-default-border;
+	padding-bottom: 1.5em;
+}
+.byline,
+.updated:not(.published) {
+	display: none;
+}
+.single .byline,
+.group-blog .byline {
+	display: inline;
+}
+.entry-meta {
+  > span:not(:first-child) {
+    margin-left: $grid-gutter-width;
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: $link-hover-decoration;
+    }
+  }
+}
+.page-content,
+.entry-content,
+.entry-summary {
+	margin: 1.5em 0 0;
+}
+.page-links {
+	clear: both;
+	margin: 0 0 1.5em;
+}
+img.wp-post-image {
+  margin-bottom: $grid-gutter-width;
+}
+
+/*--------------------------------------------------------------
+## Asides
+--------------------------------------------------------------*/
+.blog .format-aside .entry-title,
+.archive .format-aside .entry-title {
+	display: none;
+}
+
+/*--------------------------------------------------------------
+## Comments
+--------------------------------------------------------------*/
+.comment-content a {
+	word-wrap: break-word;
+}
+.bypostauthor {
+	display: block;
+}
+.comments-title, .comment-reply-title {
+	padding-bottom: 9px;
+	margin: 40px 0 20px 0;
+	border-bottom: 1px solid #eee;
+}
+#comments ol {
+	list-style:none;
+	&.comment-list {
+		padding-left: 0;
+	}
+}
+.comment-author .avatar {
+	margin-right: 25px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	padding: 4px;
+}
+.comment-meta {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.comment-details {
+	overflow: hidden;
+	zoom: 1;
+	margin-bottom: 25px;
+	padding-bottom: 25px;
+	border-bottom: 1px solid #ddd;
+}
+.comment-details .reply {
+	margin-top: 10px;
+}
+.comment-date a {
+	font-size: 11px;
+	color: #777;
+	margin-right: 10px;
+}
+#commentform #comment {
+	width: 100% !important;
+}
+#commentform #submit {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	background-color: #fff;
+	border-color: #ccc;
+}
+#commentform #submit:hover{
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#colophon {
+  margin-top: 50px;
+  border-top: 1px solid $panel-default-border;
+  .container {
+    padding-top: 25px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Infinite scroll
+--------------------------------------------------------------*/
+.infinite-scroll .posts-navigation,
+.infinite-scroll.neverending .site-footer {
+	display: none;
+}
+.infinity-end.neverending .site-footer {
+	display: block;
+}
+
+/*--------------------------------------------------------------
+# Media
+--------------------------------------------------------------*/
+.page-content .wp-smiley,
+.entry-content .wp-smiley,
+.comment-content .wp-smiley {
+	border: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
+embed,
+iframe,
+img,
+object {
+	max-width: 100%;
+}
+img {
+  height: auto;
+}
+
+/*--------------------------------------------------------------
+## Carousel
+--------------------------------------------------------------*/
 // Use Font Awesome instead of the default Slick font
 $slick-font-family: 'FontAwesome';
 $slick-loader-path: '../';
-
-// Have arrows and dots use the same color as the body
-$slick-arrow-color: #333;
-$slick-dot-color: #333;
 
 // Update the unicode characters for Font Awesome
 $slick-prev-character: "\f053";
@@ -40,70 +296,65 @@ $slick-dot-size: 9px;
 .slick-next {
   right: 25px;
 }
-
 .slick-dots {
   bottom: 0;
 }
 
-/* Underscores
- * -------------------------------------------------- */
- @import 'underscores';
-
-/* Word break
- * -------------------------------------------------- */
- #primary,
- #secondary {
-   word-break: break-all;
-   word-break: break-word;
-   hyphens: auto;
- }
-
-/* Skip to content
- * -------------------------------------------------- */
-.sr-only-focusable.skip-link:focus {
- left: $grid-gutter-width / 2;
- position: absolute;
- top: $padding-base-vertical;
- // Override font-awesome.css .sr-only styling
- padding: $padding-base-vertical $padding-base-horizontal;
- // Above WP toolbar
- z-index: 100000;
-}
-
-/* Post Meta
- * -------------------------------------------------- */
-.entry-meta {
-  > span:not(:first-child) {
-    margin-left: $grid-gutter-width;
+/*--------------------------------------------------------------
+## Captions
+--------------------------------------------------------------*/
+.wp-caption {
+	margin-bottom: 1.5em;
+	max-width: 100%;
+  img[class*="wp-image-"] {
+    display: block;
+  	margin-left: auto;
+  	margin-right: auto;
   }
-
-  .fa {
-    color: $text-muted;
-  }
-
-  a {
-    color: $text-color;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: $link-hover-decoration;
-    }
+  .wp-caption-text {
+    margin: 0.8075em 0;
   }
 }
-
-/* Featured Image
- * -------------------------------------------------- */
-img.wp-post-image {
-  margin-bottom: $grid-gutter-width;
+.wp-caption-text {
+	text-align: center;
 }
 
-/* Footer
- * -------------------------------------------------- */
-#colophon {
-  margin-top: 50px;
-  border-top: 1px solid $panel-default-border;
-
-  .container {
-    padding-top: 25px;
-  }
+/*--------------------------------------------------------------
+## Galleries
+--------------------------------------------------------------*/
+.gallery {
+	margin-bottom: 1.5em;
+}
+.gallery-item {
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+	width: 100%;
+}
+.gallery-columns-2 .gallery-item {
+	max-width: 50%;
+}
+.gallery-columns-3 .gallery-item {
+	max-width: 33.33%;
+}
+.gallery-columns-4 .gallery-item {
+	max-width: 25%;
+}
+.gallery-columns-5 .gallery-item {
+	max-width: 20%;
+}
+.gallery-columns-6 .gallery-item {
+	max-width: 16.66%;
+}
+.gallery-columns-7 .gallery-item {
+	max-width: 14.28%;
+}
+.gallery-columns-8 .gallery-item {
+	max-width: 12.5%;
+}
+.gallery-columns-9 .gallery-item {
+	max-width: 11.11%;
+}
+.gallery-caption {
+	display: block;
 }

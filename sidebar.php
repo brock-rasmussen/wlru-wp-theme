@@ -13,7 +13,9 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 ?>
 
 <aside id="secondary" class="widget-area" role="complementary">
-	<div class="well">
-		<?php dynamic_sidebar( 'sidebar-1' ); ?>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<?php dynamic_sidebar( 'sidebar-1' ); ?>
+		</div>
 	</div>
 </aside><!-- #secondary -->

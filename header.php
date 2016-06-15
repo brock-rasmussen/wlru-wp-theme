@@ -17,6 +17,7 @@
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
+<?php echo wp_kses( get_theme_mod( 'google_fonts_link', '<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Roboto+Slab" rel="stylesheet">' ), array( 'link' => array( 'href' => array(), 'rel' => array() ) ) ); ?>
 <?php wp_head(); ?>
 </head>
 
@@ -34,7 +35,12 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+					<?php if ( get_header_image() ) : ?>
+						<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+							<img src="<?php header_image(); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" alt="">
+						</a>
+					<?php endif; ?>
+					<a class="navbar-brand site-title" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
 				</div><!-- .navbar-header -->
 
 				<nav id="site-navigation" class="collapse navbar-collapse" role="navigation">

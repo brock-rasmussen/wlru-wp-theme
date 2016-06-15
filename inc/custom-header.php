@@ -56,17 +56,20 @@ function wlru_header_style() {
 		// Has the text been hidden?
 		if ( ! display_header_text() ) :
 	?>
-		.site-title,
-		.site-description {
+		.site-title {
 			position: absolute;
-			clip: rect(1px, 1px, 1px, 1px);
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
 		}
 	<?php
 		// If the user has set a custom color for the text use that.
 		else :
 	?>
-		.site-title a,
-		.site-description {
+		.site-title a {
 			color: #<?php echo esc_attr( $header_text_color ); ?>;
 		}
 	<?php endif; ?>

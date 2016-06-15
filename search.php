@@ -49,9 +49,7 @@ $search_sidebar = is_active_sidebar( 'sidebar-search' ); ?>
 					</div><!-- .col-xs-12 .col-md-9 -->
 					<?php if ( $search_sidebar ) : ?>
 						<div class="col-xs-12 col-md-3">
-							<aside id="secondary-search" class="widget-area" role="complementary">
-								<?php dynamic_sidebar( 'sidebar-search' ); ?>
-							</aside><!-- #secondary-search -->
+							<?php get_sidebar(); ?>
 						</div><!-- .col-xs-12 .col-md-3 -->
 					<?php endif; ?>
 				</div><!-- .row -->

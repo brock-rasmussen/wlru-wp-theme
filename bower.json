@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "^3.3.6",
-    "slick-carousel": "^1.6.0"
+    "slick-carousel": "^1.6.0",
+    "bootstrap-sass": "^3.3.6"
   }
 }
