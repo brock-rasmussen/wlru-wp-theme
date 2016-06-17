@@ -44,6 +44,9 @@ Theme Name: Wallarooster
   max-height: 100%;
   width: auto;
 }
+.navbar {
+  margin-bottom: 0;
+}
 /*--------------------------------------------------------------
 ## Links
 --------------------------------------------------------------*/
@@ -207,12 +210,10 @@ img.wp-post-image {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  color: #333;
   background-color: #fff;
   border-color: #ccc;
 }
 #commentform #submit:hover {
-  color: #333;
   background-color: #e6e6e6;
   border-color: #adadad;
 }
@@ -252,6 +253,9 @@ iframe,
 img,
 object {
   max-width: 100%;
+}
+img {
+  height: auto;
 }
 /*--------------------------------------------------------------
 ## Carousel
@@ -382,7 +386,7 @@ object {
   font-family: "FontAwesome";
   font-size: 20px;
   line-height: 1;
-  color: #333;
+  color: white;
   opacity: 0.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -466,13 +470,13 @@ object {
   font-size: 9px;
   line-height: 20px;
   text-align: center;
-  color: #333;
+  color: black;
   opacity: 0.25;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .slick-dots li.slick-active button:before {
-  color: #333;
+  color: black;
   opacity: 0.75;
 }
 .slick-prev {
@@ -484,6 +488,33 @@ object {
 }
 .slick-dots {
   bottom: 0;
+}
+.slick-slide.left-top {
+  background-position: left top;
+}
+.slick-slide.left-center {
+  background-position: left center;
+}
+.slick-slide.left-bottom {
+  background-position: left bottom;
+}
+.slick-slide.right-top {
+  background-position: right top;
+}
+.slick-slide.right-center {
+  background-position: right center;
+}
+.slick-slide.right-bottom {
+  background-position: right bottom;
+}
+.slick-slide.center-top {
+  background-position: center top;
+}
+.slick-slide.center-center {
+  background-position: center center;
+}
+.slick-slide.center-bottom {
+  background-position: center bottom;
 }
 /*--------------------------------------------------------------
 ## Captions

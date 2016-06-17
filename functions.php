@@ -126,15 +126,15 @@ add_action( 'widgets_init', 'wlru_widgets_init' );
  * Enqueue scripts and styles.
  */
 function wlru_scripts() {
-	wp_enqueue_style( 'wlru-style', get_stylesheet_uri() );
-
 	wp_enqueue_script( 'wlru-font-awesome', 'https://use.fontawesome.com/3b95dffedb.js' );
-
-	wp_enqueue_script( 'wlru-js', get_template_directory_uri() . '/js/scripts.min.js', array(), null, true );
 
 	wp_enqueue_style( 'wlru-bootstrap-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' );
 
+	wp_enqueue_style( 'wlru-style', get_stylesheet_uri() );
+
 	wp_enqueue_script( 'wlru-bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array( 'jquery' ), null, true );
+
+	wp_enqueue_script( 'wlru-js', get_template_directory_uri() . '/js/scripts.min.js', array(), null, true );
 
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'wlru-slick-js', 'https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js', array( 'jquery' ), '1.6.0', true );
@@ -145,43 +145,6 @@ function wlru_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wlru_scripts' );
-
-function wlru_slider() {
-	if ( is_front_page() ) {
-		$slider_arrows				= get_theme_mod( 'slider_arrows', true ) ? 'true' : 'false';
-		$slider_autoplay			= get_theme_mod( 'slider_autoplay', false ) ? 'true' : 'false';
-		$slider_autoplayspeed	= get_theme_mod( 'slider_autoplayspeed', 3000 );
-		$slider_dots					= get_theme_mod( 'slider_dots', false ) ? 'true' : 'false';
-		$slider_fade					= get_theme_mod( 'slider_fade', false ) ? 'true' : 'false';
-		$slider_speed					= get_theme_mod( 'slider_speed', 300 );
-
-		$script = join( array(
-			'<script>',
-				'jQuery(document).ready(function() {',
-					'jQuery( \'#slider\').slick({',
-						'arrows: ' . $slider_arrows . ',',
-						'autoplay: ' . $slider_autoplay . ',',
-						'autoplaySpeed: ' . $slider_autoplayspeed . ',',
-						'dots: ' . $slider_dots . ',',
-						'fade: ' . $slider_fade . ',',
-						'speed: ' . $slider_speed . ',',
-						'responsive: [',
-							'{',
-							'breakpoint: 768,',
-							'settings: {',
-								'arrows: false',
-							'}',
-							'}',
-						']',
-					'});',
-				'});',
-			'</script>',
-		) );
-
-		echo $script;
-	}
-}
-add_action( 'wp_footer', 'wlru_slider', 30 );
 
 /**
  * Implement the Custom Header feature.

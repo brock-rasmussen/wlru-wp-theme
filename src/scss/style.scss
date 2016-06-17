@@ -25,6 +25,7 @@ Theme Name: Wallarooster
 --------------------------------------------------------------*/
 @import "bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+$navbar-margin-bottom: 0;
 
 /*--------------------------------------------------------------
 # Typography
@@ -47,6 +48,9 @@ Theme Name: Wallarooster
   max-height: 100%;
   width: auto;
 }
+
+// NOTE: remove if using bootstrap-sass
+.navbar { margin-bottom: $navbar-margin-bottom; }
 
 /*--------------------------------------------------------------
 ## Links
@@ -298,6 +302,37 @@ $slick-dot-size: 9px;
 }
 .slick-dots {
   bottom: 0;
+}
+
+// SLICK ADDITIONS
+.slick-slide {
+  &.left-top {
+    background-position: left top;
+  }
+  &.left-center {
+    background-position: left center;
+  }
+  &.left-bottom {
+    background-position: left bottom;
+  }
+  &.right-top {
+    background-position: right top;
+  }
+  &.right-center {
+    background-position: right center;
+  }
+  &.right-bottom {
+    background-position: right bottom;
+  }
+  &.center-top {
+    background-position: center top;
+  }
+  &.center-center {
+    background-position: center center;
+  }
+  &.center-bottom {
+    background-position: center bottom;
+  }
 }
 
 /*--------------------------------------------------------------

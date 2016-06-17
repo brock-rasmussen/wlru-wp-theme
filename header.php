@@ -26,7 +26,7 @@
 	<a class="skip-link sr-only sr-only-focusable btn btn-default" href="#main"><?php esc_html_e( 'Skip to content', 'wlru' ); ?></a>
 
 	<header id="masthead" role="banner">
-		<div class="navbar navbar-static-top navbar-default">
+		<div class="navbar navbar-static-top <?php echo get_theme_mod( 'navbar_mode', 'navbar-default' ); ?>">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#site-navigation" aria-controls="site-navigation" aria-expanded="false">
