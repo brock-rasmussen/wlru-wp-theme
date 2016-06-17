@@ -191,32 +191,67 @@ function wlru_customize_css() {
 			case 'navbar-inverse':
 				$navbar_color = get_theme_mod( 'navbar_inverse_color', '' );
 				$navbar_bg = get_theme_mod( 'navbar_inverse_bg', '' );
-				$navbar_border = get_theme_mod( 'navbar_inverse_border', '' );
-				$navbar_link_color = get_theme_mod( 'navbar_inverse_color', '' );
-				$navbar_link_hover_color = get_theme_mod( 'navbar_inverse_color', '' );
-				$navbar_link_hover_bg = get_theme_mod( 'navbar_inverse_color', '' );
-				$navbar_link_active_bg = get_theme_mod( 'navbar_inverse_color', '' );
-				$navbar_toggle_hover_bg = get_theme_mod( 'navbar_inverse_color', '' );
-				$navbar_toggle_icon_bar_bg = get_theme_mod( 'navbar_inverse_color', '' );
-				$navbar_toggle_border_color = get_theme_mod( 'navbar_inverse_color', '' );
+
+				$navbar_border = ; // darken navbar_bg 6.5%
+				$navbar_link_active_bg = ; // darken navbar_bg 6.5%
+
+				$navbar_link_color = ; // lighten gray_light 15% (should have a theme_mod)
+				$navbar_link_hover_color = get_theme_mod( 'navbar_inverse_link_hover_color', '#fff' );
+				$navbar_link_active_color = get_theme_mod( 'navbar_inverse_link_active_color', '#fff' );
+
+				$navbar_toggle_hover_bg = get_theme_mod( 'navbar_inverse_toggle_hover_bg', '#333' );
+				$navbar_toggle_icon_bar_bg = get_theme_mod( 'navbar_inverse_toggle_icon_bar_bg', '' );
+				$navbar_toggle_border_color = get_theme_mod( 'navbar_inverse_toggle_border_color', '' );
 				break;
 			default:
 				$navbar_color = get_theme_mod( 'navbar_default_color', '#777' );
 				$navbar_bg = get_theme_mod( 'navbar_default_bg', '' );
-				$navbar_border = get_theme_mod( 'navbar_default_border', '' );
-				$navbar_link_color = get_theme_mod( 'navbar_default_color', '' );
-				$navbar_link_hover_color = get_theme_mod( 'navbar_default_color', '' );
-				$navbar_link_hover_bg = get_theme_mod( 'navbar_default_color', '' );
-				$navbar_link_active_bg = get_theme_mod( 'navbar_default_color', '' );
-				$navbar_toggle_hover_bg = get_theme_mod( 'navbar_default_color', '' );
-				$navbar_toggle_icon_bar_bg = get_theme_mod( 'navbar_default_color', '' );
-				$navbar_toggle_border_color = get_theme_mod( 'navbar_default_color', '' );
+
+				$navbar_border = ; // darken navbar_bg 10%
+				$navbar_link_active_bg = ; // darken navbar_bg 10%
+
+				$navbar_link_color = get_theme_mod( 'navbar_default_link_color', '#777' );
+				$navbar_link_hover_color = get_theme_mod( 'navbar_default_link_hover_color', '#333' );
+				$navbar_link_active_color = get_theme_mod( 'navbar_default_link_active_color', '#555' );
+
+				$navbar_toggle_hover_bg = get_theme_mod( 'navbar_default_toggle_hover_bg', '' );
+				$navbar_toggle_icon_bar_bg = get_theme_mod( 'navbar_default_toggle_icon_bar_bg', '' );
+				$navbar_toggle_border_color = get_theme_mod( 'navbar_default_toggle_border_color', '' );
 				break;
 		}
 		?>
 		.<?php echo $navbar_mode; ?> {
-
+			background-color: <?php echo $navbar_bg; ?>;
 		}
+
+		.<?php echo $navbar_mode; ?> .navbar-text {
+			color: <?php echo $navbar_color; ?>;
+		}
+
+		.<?php echo $navbar_mode; ?> .navbar-nav > li > a,
+		.<?php echo $navbar_mode; ?> .navbar-link,
+		.<?php echo $navbar_mode; ?> .btn-link {
+			color: <?php echo $navbar_link_color; ?>;
+		}
+		.<?php echo $navbar_mode; ?> .navbar-nav > li > a:hover,
+		.<?php echo $navbar_mode; ?> .navbar-nav > li > a:focus,
+		.<?php echo $navbar_mode; ?> .navbar-link:hover,
+		.<?php echo $navbar_mode; ?> .navbar-link:focus,
+		.<?php echo $navbar_mode; ?> .btn-link:hover,
+		.<?php echo $navbar_mode; ?> .btn-link:focus {
+			color: <?php echo $navbar_link_hover_color; ?>;
+		}
+		@media (max-width: 767px) {
+			.<?php echo $navbar_mode; ?> .open .dropdown-menu > li > a {
+				color: <?php echo $navbar_link_color; ?>;
+			}
+			.<?php echo $navbar_mode; ?> .open .dropdown-menu > li > a:hover,
+			.<?php echo $navbar_mode; ?> .open .dropdown-menu > li > a:hover {
+				color: <?php echo $navbar_link_hover_color; ?>
+			}
+		}
+
+
 
 
 		/* gray darker */
