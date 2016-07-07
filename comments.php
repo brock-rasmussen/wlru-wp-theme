@@ -86,6 +86,7 @@ if ( post_password_required() ) {
 	$comments_args = array(
 		// change the title of send button
 		'label_submit'=>'Submit',
+		'class_submit'=>'btn btn-default',
 		// change the title of the reply section
 		'title_reply'=>'Leave a Comment',
 		// remove "Text or HTML to be displayed after the set of comment fields"

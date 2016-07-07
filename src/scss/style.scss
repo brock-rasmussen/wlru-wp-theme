@@ -1,5 +1,5 @@
 /*!
-Theme Name: Wallarooster
+Theme Name: wlru
 */
 
 /*--------------------------------------------------------------
@@ -208,28 +208,6 @@ img.wp-post-image {
 #commentform #comment {
 	width: 100% !important;
 }
-#commentform #submit {
-	display: inline-block;
-	padding: 6px 12px;
-	margin-bottom: 0;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.42857143;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	cursor: pointer;
-	user-select: none;
-	background-image: none;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	background-color: #fff;
-	border-color: #ccc;
-}
-#commentform #submit:hover{
-	background-color: #e6e6e6;
-	border-color: #adadad;
-}
 
 /*--------------------------------------------------------------
 # Footer
@@ -305,6 +283,9 @@ $slick-dot-size: 9px;
 }
 
 // SLICK ADDITIONS
+#slider .jumbotron {
+  background-size: cover;
+}
 .slick-slide {
   &.left-top {
     background-position: left top;

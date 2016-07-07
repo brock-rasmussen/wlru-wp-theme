@@ -14,21 +14,21 @@ get_header(); ?>
 
       <div id="slider">
         <?php
-        $wlru_slide_qty = 5;
-        for ( $i = 1; $i <= $wlru_slide_qty; $i++ ) {
-          if ( get_theme_mod( 'slide_' . $i . '_display' ) ) : ?>
-            <div class="jumbotron <?php echo get_theme_mod( 'slide_' . $i . '_focal_point', 'center-center' ); ?>"<?php if ( get_theme_mod( 'slide_' . $i . '_image', '' ) ) {
-              echo ' style="background-image: url(' . esc_url_raw( set_url_scheme( get_theme_mod( 'slide_' . $i . '_image', '' ) ) ) . ');"';
+        $wlru_slider_qty = 5;
+        for ( $i = 1; $i <= $wlru_slider_qty; $i++ ) {
+          if ( get_theme_mod( 'wlru_slider_' . $i . '_display' ) ) : ?>
+            <div class="jumbotron <?php echo get_theme_mod( 'wlru_slider_' . $i . '_focal_point', 'center-center' ); ?>"<?php if ( get_theme_mod( 'wlru_slider_' . $i . '_image', '' ) ) {
+              echo ' style="background-image: url(' . esc_url_raw( set_url_scheme( get_theme_mod( 'wlru_slider_' . $i . '_image', '' ) ) ) . ');"';
             } ?>>
               <div class="jumbotron-overlay">
-                <?php if ( get_theme_mod( 'slide_' . $i . '_heading', '' ) ) : ?>
-                  <h1><?php echo get_theme_mod( 'slide_' . $i . '_heading', '' ); ?></h1>
+                <?php if ( get_theme_mod( 'wlru_slider_' . $i . '_heading', '' ) ) : ?>
+                  <h1><?php echo get_theme_mod( 'wlru_slider_' . $i . '_heading', '' ); ?></h1>
                 <?php endif; ?>
-                <?php if ( get_theme_mod( 'slide_' . $i . '_text' ) ) : ?>
-                  <p><?php echo get_theme_mod( 'slide_' . $i . '_text', '' ); ?></p>
+                <?php if ( get_theme_mod( 'wlru_slider_' . $i . '_text' ) ) : ?>
+                  <p><?php echo get_theme_mod( 'wlru_slider_' . $i . '_text', '' ); ?></p>
                 <?php endif; ?>
-                <?php if ( get_theme_mod( 'slide_' . $i . '_button_link', '' ) && get_theme_mod( 'slide_' . $i . '_button_text', '' ) ) : ?>
-                  <p><a class="btn btn-lg btn-primary" href="<?php echo get_theme_mod( 'slide_' . $i . '_button_link' , '' ); ?>" role="button"><?php echo get_theme_mod( 'slide_' . $i . '_button_text', '' ); ?></a></p>
+                <?php if ( get_theme_mod( 'wlru_slider_' . $i . '_button_link', '' ) && get_theme_mod( 'wlru_slider_' . $i . '_button_text', '' ) ) : ?>
+                  <p><a class="btn btn-lg btn-primary" href="<?php echo get_theme_mod( 'wlru_slider_' . $i . '_button_link' , '' ); ?>" role="button"><?php echo get_theme_mod( 'wlru_slider_' . $i . '_button_text', '' ); ?></a></p>
                 <?php endif ?>
               </div>
             </div>
