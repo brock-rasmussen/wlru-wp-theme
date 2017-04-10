@@ -15,7 +15,7 @@
 
 		<?php if ( 'post' === get_post_type() ) : ?>
 		<div class="entry-meta">
-			<?php wlru_posted_on(); ?>
+			<?php // wlru_posted_on(); ?>
 		</div><!-- .entry-meta -->
 		<?php endif; ?>
 	</header><!-- .entry-header -->
@@ -25,6 +25,16 @@
 	</div><!-- .entry-summary -->
 
 	<footer class="entry-footer">
-		<?php wlru_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
+		<?php
+			edit_post_link(
+				sprintf(
+					/* translators: %s: Name of current post */
+					esc_html__( 'Edit %s', 'wlru' ),
+					the_title( '<span class="sr-only">"', '"</span>', false )
+				),
+				'<span class="edit-link">',
+				'</span>'
+			);
+		?>
+	</footer>
 </article><!-- #post-## -->

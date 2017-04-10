@@ -37,33 +37,33 @@ if ( post_password_required() ) {
 
 		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
 		<nav id="comment-nav-above" class="navigation comment-navigation" role="navigation">
-			<h2 class="sr-only"><?php esc_html_e( 'Comment navigation', 'wlru' ); ?></h2>
+			<h2 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', '_s' ); ?></h2>
 			<div class="nav-links">
 
-				<div class="nav-previous"><?php previous_comments_link( esc_html__( 'Older Comments', 'wlru' ) ); ?></div>
-				<div class="nav-next"><?php next_comments_link( esc_html__( 'Newer Comments', 'wlru' ) ); ?></div>
+				<div class="nav-previous"><?php previous_comments_link( esc_html__( 'Older Comments', '_s' ) ); ?></div>
+				<div class="nav-next"><?php next_comments_link( esc_html__( 'Newer Comments', '_s' ) ); ?></div>
 
 			</div><!-- .nav-links -->
 		</nav><!-- #comment-nav-above -->
 		<?php endif; // Check for comment navigation. ?>
 
-		<ol class="comment-list">
+		<ul class="comment-list">
 			<?php
 				wp_list_comments( array(
-					'style'      => 'ol',
-					'short_ping' => true,
-					'callback'	 => 'wlru_comment',
+					'walker'			=> new Bootstrap_Comment_Walker(),
+					'avatar_size'	=> 64,
+					'short_ping'	=> true,
 				) );
 			?>
-		</ol><!-- .comment-list -->
+		</ul><!-- .comment-list -->
 
 		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
 		<nav id="comment-nav-below" class="navigation comment-navigation" role="navigation">
-			<h2 class="sr-only"><?php esc_html_e( 'Comment navigation', 'wlru' ); ?></h2>
+			<h2 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', '_s' ); ?></h2>
 			<div class="nav-links">
 
-				<div class="nav-previous"><?php previous_comments_link( esc_html__( 'Older Comments', 'wlru' ) ); ?></div>
-				<div class="nav-next"><?php next_comments_link( esc_html__( 'Newer Comments', 'wlru' ) ); ?></div>
+				<div class="nav-previous"><?php previous_comments_link( esc_html__( 'Older Comments', '_s' ) ); ?></div>
+				<div class="nav-next"><?php next_comments_link( esc_html__( 'Newer Comments', '_s' ) ); ?></div>
 
 			</div><!-- .nav-links -->
 		</nav><!-- #comment-nav-below -->
@@ -76,49 +76,33 @@ if ( post_password_required() ) {
 	// If comments are closed and there are comments, let's leave a little note, shall we?
 	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
 
-		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'wlru' ); ?></p>
+		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', '_s' ); ?></p>
 	<?php
 	endif;
 
-	$req = get_option( 'require_name_email' );
-	$aria_req = ( $req ? " aria-required='true'" : '' );
+	comment_form( array(
+		'fields'					=> apply_filters( 'comment_form_default_fields', array(
+			'author'				=> '<div class="form-group"><label for="author">' . __( 'Your Name', 'wlru' ) . '</label><input class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '"' . ( get_option( 'require_name_email' ) ? ' aria-required="true"' : '' ) . '></div>',
 
-	$comments_args = array(
-		// change the title of send button
-		'label_submit'=>'Submit',
-		'class_submit'=>'btn btn-default',
-		// change the title of the reply section
-		'title_reply'=>'Leave a Comment',
-		// remove "Text or HTML to be displayed after the set of comment fields"
-		'comment_notes_after' => '',
-		// redefine your own textarea (the comment body)
-		'comment_field' => ' <div class="form-group"><label for="comment">' . _x( 'Comment', 'bootstrapwp' ) . '</label><textarea class="form-control" rows="10" id="comment" name="comment" aria-required="true"></textarea></div>',
+			'email'					=> '<div class="form-group"><label for="email">' . __( 'Your Email', 'wlru' ) . '</label>' . '<input class="form-control" id="email" name="email" type="text" value="' . esc_attr( $commenter['comment_author_email'] ) . '"' . ( get_option( 'require_name_email' ) ? ' aria-required="true"' : '' ) . '></div>',
+		) ),
 
-		'fields' => apply_filters( 'comment_form_default_fields', array(
+		'comment_field'		=> '<div class="form-group"><label for="comment">' . _x( 'Your Comment', 'wlru' ) . '</label><textarea class="form-control" id="comment" name="comment" aria-required="true"></textarea></div>',
 
-			'author' =>
-				'<div class="form-group">' .
-				'<label for="author">' . __( 'Name', 'bootstrapwp' ) . '</label> ' .
-				( $req ? '<span class="required">*</span>' : '' ) .
-				'<input class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .
-				'" size="30"' . $aria_req . ' /></div>',
+		'must_log_in'						=> '<div class="must-log-in alert alert-danger" role="alert">' . sprintf( __( '<strong>Log in!</strong> You must be <a href="%s">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( ) ) ) ) . '</div>',
 
-			'email' =>
-				'<div class="form-group"><label for="email">' . __( 'Email', 'bootstrapwp' ) . '</label> ' .
-				( $req ? '<span class="required">*</span>' : '' ) .
-				'<input class="form-control" id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
-				'" size="30"' . $aria_req . ' /></div>',
+		'logged_in_as'					=> '<p class="logged-in-as">' . sprintf( __( 'Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s" title="Log out of this account">Log out?</a>' ), admin_url( 'profile.php' ), $user_identity, wp_logout_url( apply_filters( 'the_permalink', get_permalink() ) ) ) . '</p>',
 
-			'url' =>
-				'<div class="form-group"><label for="url">' .
-				__( 'Website', 'bootstrapwp' ) . '</label>' .
-				'<input class="form-control" id="url" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) .
-				'" size="30" /></div>'
-			)
-		),
-	);
+		'comment_notes_after'		=> '',
 
-	comment_form($comments_args);
+		'class_submit'					=> 'submit btn btn-default',
+
+		'title_reply'						=> __( 'Join the Discussion', 'wlru' ),
+
+		'title_reply_to'				=> __( 'Reply to %s', 'wlru' ),
+
+		'label_submit'					=> __( 'Submit Comment', 'wlru' ),
+	) );
 	?>
 
 </div><!-- #comments -->

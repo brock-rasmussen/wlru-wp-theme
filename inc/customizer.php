@@ -5,67 +5,77 @@
  * @package wlru
  */
 
-/**
- * Add postMessage support for site title and description for the Theme Customizer.
- *
- * @param WP_Customize_Manager $wp_customize Theme Customizer object.
- */
-function hex2hsl( $hex, $lightness = 0 ) {
-	$hex = str_split( str_replace( '#', '', $hex ), 2 );
+// Customizer Settings
+add_action( 'customize_register', 'wlru_customize_settings_register' );
+function wlru_customize_settings_register( $wp_customize ) {
+  $wp_customize->remove_control( 'header_textcolor' );
 
-	$r = hexdec( $hex[0] ) / 255;
-	$g = hexdec( $hex[1] ) / 255;
-	$b = hexdec( $hex[2] ) / 255;
+  $wp_customize->add_setting( 'wlru_theme_color', array( 'default' => '#337ab7' ) );
+  $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'wlru_theme_color', array(
+    'label'       => __( 'Theme Color', 'wlru' ),
+    'description' => __( 'Color suggested to browsers and OSes for use if they customize the display of individual pages in their UIs with varying colors.', 'wlru' ),
+    'section'     => 'title_tagline',
+    'settings'    => 'wlru_theme_color',
+    'priority'    => 9,
+  ) ) );
 
-	$max = max( $r, $g, $b );
-	$min = min( $r, $g, $b );
-	$chroma = $max - $min;
+  /* SCAFFOLDING */
+  $wp_customize->add_setting( 'wlru_text_section_max_width', array( 'default' => '70ch' ) );
+  $wp_customize->add_control( 'wlru_text_section_max_width', array(
+    'label'       => __( 'Text Section Max Width', 'wlru' ),
+    'description' => '<code>.text-section</code>',
+    'section'     => 'wlru_scaffolding',
+    'settings'    => 'wlru_text_section_max_width',
+    'priority'    => 9,
+  ) );
 
-	$l = ( $max + $min ) / 2;
+  $wp_customize->add_setting( 'wlru_pagination', array( 'default' => 'pager' ) );
+  $wp_customize->add_control( 'wlru_pagination', array(
+    'label'       => __( 'Pagination', 'wlru' ),
+    'section'     => 'wlru_scaffolding',
+    'settings'    => 'wlru_pagination',
+    'type'        => 'select',
+    'choices'     => array(
+      'pager'       => 'Pager',
+      'pagination'  => 'Pagination'
+    ),
+    'priority'    => 9,
+  ) );
 
-	if ( $chroma == 0 ) {
-		$h = 0;
-		$s = 0;
-	} else {
-		$s = $chroma / ( 1 - abs( 2 * $l - 1 ) );
+  /* TYPOGRAPHY */
+  $wp_customize->add_setting( 'wlru_google_fonts_link', array( 'default' => '' ) );
+  $wp_customize->add_control( 'wlru_google_fonts_link', array(
+    'label'       => __( 'Google Fonts Link', 'wlru' ),
+    'section'     => 'wlru_typography',
+    'settings'    => 'wlru_google_fonts_link',
+    'type'        => 'textarea',
+  ) );
 
-		switch ( $max ) {
-			case $r:
-				$h = 60 * fmod( ( ( $g - $b ) / $chroma ), 6 );
-				if ( $b > $g ) $h += 360;
-				break;
-			case $g:
-				$h = 60 * ( ( $b - $r ) / $chroma + 2 );
-				break;
-			case $b:
-				$h = 60 * ( ( $r - $g ) / $chroma + 4 );
-				break;
-		}
-	}
-	return 'hsl(' . round( $h, 2 ) . ', ' . ( round( $s, 2 ) * 100 ) . '%, ' . ( ( round( $l, 2 ) * 100 ) + $lightness ) . '%)';
+  /* BUTTONS */
+  $wp_customize->add_setting( 'wlru_btn_font_family', array( 'default' => 'inherit' ) );
+  $wp_customize->add_control( 'wlru_btn_font_family', array(
+    'label'       => __( 'Font Family', 'wlru' ),
+    'section'     => 'wlru_buttons',
+    'settings'    => 'wlru_btn_font_family',
+    'priority'    => 9,
+  ) );
 }
 
-function wlru_customize_register( $wp_customize ) {
-	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	// $wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+// Customizer CSS
+require get_template_directory() . '/inc/customizer/sass/color-functions.php';
+require get_template_directory() . '/inc/customizer/bootstrap/bootstrap.php';
 
-	$wp_customize->remove_control( 'header_textcolor' );
-}
-add_action( 'customize_register', 'wlru_customize_register' );
+add_action( 'wp_head', 'wlru_customize_settings_css' );
+function wlru_customize_settings_css() { ?>
+<style type="text/css" id="wlru-settings">
+<?php // SCAFFOLDING ?>
+.text-section { max-width: <?php echo get_theme_mod( 'wlru_text_section_max_width', '70ch' ); ?>; }<?php
 
-require get_template_directory() . '/inc/customizer/colors.php';
-require get_template_directory() . '/inc/customizer/scaffolding.php';
-require get_template_directory() . '/inc/customizer/typography.php';
-require get_template_directory() . '/inc/customizer/buttons.php';
-require get_template_directory() . '/inc/customizer/navbar.php';
-require get_template_directory() . '/inc/customizer/panels.php';
-require get_template_directory() . '/inc/customizer/slider.php';
 
-/**
- * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
- */
-function wlru_customize_preview_js() {
-	wp_enqueue_script( 'wlru_customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20151215', true );
-}
-add_action( 'customize_preview_init', 'wlru_customize_preview_js' );
+// BUTTONS
+$btn_font_family = get_theme_mod( 'wlru_btn_font_family', 'inherit' );
+if ( $btn_font_family !== 'inherit' ) : ?>
+.btn { font-family: <?php echo $btn_font_family; ?>; }
+<?php endif; ?>
+</style>
+<?php }
